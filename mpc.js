@@ -60,7 +60,7 @@ function calc(R){var I=inp(),P=I.P,V=I.V,b=I.b,r={id:R.id,t:R.t,note:''};
  if(R.k==='wb'){var w=wbM[$('wbs').value.trim().toLowerCase()],p=w&&w.p,fbs=I.fbs||R.onlyFbs,ci=fbs?R.cs:R.cw;r.wb=1;
   if(!w)r.na=1;r.rate=p&&p[ci]!=null?p[ci]/100:NaN;if(p&&p[ci]==null){r.na=1;r.note='нет ставки для этой категории'}
   var coef=C.wh[+$('wh').value][1]/100,base=wbBase(V);r.one=base*coef*I.il;var rev=base;r.sale=(r.one+rev)/b-rev;
-  r.stor=fbs?0:(0.08+0.08*Math.max(0,Math.ceil(V)-1))*coef*I.days;r.eq=P*num('eqwb')/100;r.comm=P*(r.rate||0);
+  r.stor=fbs?0:0.08*Math.max(V,1)*coef*I.days;r.eq=P*num('eqwb')/100;r.comm=P*(r.rate||0);
   return fin(r,I,R.local)}
  if(R.k==='oz'){var o=ozM[$('ozs').value.trim().toLowerCase()],op=o&&o.p;if(!o)r.na=1;
   var ix=(P<=100?0:P<=300?1:2)+(I.fbs?3:0);r.rate=op&&op[ix]!=null?op[ix]:NaN;var lr=olRow(V),lg=P<=300?lr[1]:lr[2];
@@ -83,7 +83,7 @@ function hist(h){var I=inp(),P=I.P,V=I.V,b=I.b,days=I.days,w=wbM[$('wbs').value.
   else if(h[3]==='b25'){if(ok(B[1],B[2]))bl=V>1?B[1]+B[2]*(V-1):B[1];if(ok(B[4],B[5]))st=(V>1?B[4]+B[5]*(V-1):B[4])*days}
   else{if(ok(B[0],B[1],B[2]))bl=V>=1?B[1]+B[2]*(V-1):tierOld(V)*B[0]/100;if(ok(B[4],B[5]))st=(V>1?B[4]+B[5]*(V-1):B[4])*days}}
  var one=bl*s[2]+P*s[3],rev=h[4]||(V<1?tierOld(V):46+(V-1)*14),r={t:h[1],wb:1,rate:p&&p[h[2]]!=null?p[h[2]]/100:NaN,one:one,sale:(one+rev)/b-rev,stor:st,eq:P*s[1]};
- r.na=!(r.rate>=0);r.comm=P*(r.rate||0);var I2=Object.assign({},I,{spp:s[0],nds:h[0].indexOf('wb26')===0?I.nds:0});return fin(r,I2)}
+ r.na=!(r.rate>=0);r.comm=P*(r.rate||0);var I2=Object.assign({},I,{nds:h[0].indexOf('wb26')===0?I.nds:0});return fin(r,I2)}
 var selId='wbru',last=[];
 function render(){var I=inp();$('vol').textContent='Объём 1 товара: '+I.V.toLocaleString('ru-RU',{maximumFractionDigits:2})+' л';
  var w=wbM[$('wbs').value.trim().toLowerCase()];$('buyh').textContent=w&&w.b!=null?'Средний выкуп категории на WB: '+(w.b*100).toFixed(1)+'%':'';
