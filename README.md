@@ -6,5 +6,5 @@ WB, Ozon, Яндекс Маркет, М.Видео, Золотое Яблоко.
 
 ```html
 <div id="mpc-root"></div>
-<script src="https://cdn.jsdelivr.net/gh/natalakulmac-pixel/mp-calculator@v6/mpc.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/natalakulmac-pixel/mp-calculator@v7/mpc.js"></script>
 ```
